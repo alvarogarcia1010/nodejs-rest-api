@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var StudentManager = require('../controllers/StudentManager');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', StudentManager.getAll);
+
+router.get('/:id', StudentManager.getStudentById);
+
+router.post('/create', StudentManager.create);
+
+router.put('/update', StudentManager.update);
+
+router.delete('/delete', StudentManager.delete);
 
 module.exports = router;

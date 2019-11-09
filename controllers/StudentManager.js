@@ -33,8 +33,12 @@ StudentManager.getStudentById = (req, res, next) =>{
 
 
 StudentManager.create = (req, res, next) =>{
-    
-    let student = new Student(req.body);
+
+    let student = new Student();
+    student.carnet = req.body.carnet;
+    student.schedule = req.body.schedule;
+    student.isLate = req.body.isLate;
+    student.datetime = req.body.datetime;
 
     student.save((error, student)=>{
         if(error) return res.status(500).json({success: false, message:"Error interno del servidor"});
@@ -55,6 +59,8 @@ StudentManager.update = (req, res, next) =>{
 
     var id = req.body.id;
 
+    req.body.id = undefined;
+
     Student.findByIdAndUpdate(id, req.body, {new:true}, (error, student)=>{
         if(error) return res.status(500).json({success: false, message:"Error interno del servidor"});
 
@@ -69,7 +75,7 @@ StudentManager.update = (req, res, next) =>{
     });
 };
 
-SearchManager.delete = (req, res, next) =>{
+StudentManager.delete = (req, res, next) =>{
 
     var id = req.body.id;
 
